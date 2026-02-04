@@ -1,157 +1,161 @@
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { db, auth } from '../firebase';
+import { doc, updateDoc, getDoc } from 'firebase/firestore';
 
 function Input() {
   const navigate = useNavigate();
   const [education, setEducation] = useState('');
   const [state, setState] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleContinue = () => {
+  // Redirect if data already exists
+  useEffect(() => {
+    const checkExistingData = async () => {
+      const user = auth.currentUser;
+      if (user) {
+        const userRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(userRef);
+        if (docSnap.exists() && docSnap.data().userState) {
+          navigate('/roadmap', { replace: true });
+        }
+      }
+    };
+    checkExistingData();
+  }, [navigate]);
+
+  const handleContinue = async () => {
     if (!education || !state) {
       alert('Please select both education level and state');
       return;
     }
 
-    localStorage.setItem('educationLevel', education);
-    localStorage.setItem('userState', state);
-    navigate('/roadmap');
+    setLoading(true);
+    try {
+      const user = auth.currentUser;
+      if (user) {
+        const userRef = doc(db, "users", user.uid);
+        
+        await updateDoc(userRef, {
+          educationLevel: education,
+          userState: state,
+          currentStep: education === 'Graduate' ? 2 : 1 
+        });
+
+        localStorage.setItem('educationLevel', education);
+        localStorage.setItem('userState', state);
+        
+        navigate('/roadmap');
+      } else {
+        alert("Please login first!");
+        navigate('/login');
+      }
+    } catch (error) {
+      console.error("Error saving details:", error);
+      alert("Something went wrong while saving your details.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div style={styles.container}>
-      <h2>Select Your Current Details</h2>
+      <div style={styles.card}>
+        <h2 style={{color: '#0B3C5D'}}>Setup Your Journey</h2>
+        <p style={{color: '#666'}}>Help us tailor the roadmap to your needs.</p>
 
-      {/* Education Selection */}
-      <div style={{ marginTop: '25px' }}>
-        <h4>Education Level</h4>
+        <div style={{ marginTop: '25px' }}>
+          <h4 style={styles.label}>Education Level</h4>
+          <div style={styles.btnGroup}>
+            {['10th', '12th', 'Graduate'].map((level) => (
+              <button
+                key={level}
+                style={education === level ? styles.activeBtn : styles.btn}
+                onClick={() => setEducation(level)}
+              >
+                {level === 'Graduate' ? 'Law Graduate' : `Class ${level}`}
+              </button>
+            ))}
+          </div>
+        </div>
 
-        <button
-          style={education === '10th' ? styles.activeBtn : styles.btn}
-          onClick={() => setEducation('10th')}
+        <div style={{ marginTop: '30px' }}>
+          <h4 style={styles.label}>Select Your State</h4>
+          <select
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+            style={styles.select}
+          >
+            <option value="">-- Choose State --</option>
+            {indianStates.map((s) => (
+              <option key={s} value={s}>{s}</option>
+            ))}
+          </select>
+        </div>
+
+        <button 
+          style={loading ? styles.disabledBtn : styles.continueBtn} 
+          onClick={handleContinue}
+          disabled={loading}
         >
-          Class 10
-        </button>
-
-        <button
-          style={education === '12th' ? styles.activeBtn : styles.btn}
-          onClick={() => setEducation('12th')}
-        >
-          Class 12
-        </button>
-
-        <button
-          style={education === 'Graduate' ? styles.activeBtn : styles.btn}
-          onClick={() => setEducation('Graduate')}
-        >
-          Graduate
+          {loading ? 'Saving...' : 'Generate My Roadmap'}
         </button>
       </div>
-
-      {/* State Selection */}
-      <div style={{ marginTop: '30px' }}>
-        <h4>Select Your State</h4>
-
-        <select
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-          style={styles.select}
-        >
-          <option value="">-- Select State --</option>
-          {indianStates.map((s) => (
-            <option key={s} value={s}>
-              {s}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* Continue Button */}
-      <button style={styles.continueBtn} onClick={handleContinue}>
-        Continue
-      </button>
     </div>
   );
 }
 
 const indianStates = [
-  'Andhra Pradesh',
-  'Arunachal Pradesh',
-  'Assam',
-  'Bihar',
-  'Chhattisgarh',
-  'Goa',
-  'Gujarat',
-  'Haryana',
-  'Himachal Pradesh',
-  'Jharkhand',
-  'Karnataka',
-  'Kerala',
-  'Madhya Pradesh',
-  'Maharashtra',
-  'Manipur',
-  'Meghalaya',
-  'Mizoram',
-  'Nagaland',
-  'Odisha',
-  'Punjab',
-  'Rajasthan',
-  'Sikkim',
-  'Tamil Nadu',
-  'Telangana',
-  'Tripura',
-  'Uttar Pradesh',
-  'Uttarakhand',
-  'West Bengal'
+  'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chhattisgarh',
+  'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jharkhand', 'Karnataka',
+  'Kerala', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya',
+  'Mizoram', 'Nagaland', 'Odisha', 'Punjab', 'Rajasthan', 'Sikkim',
+  'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal'
 ];
 
 const styles = {
   container: {
-    padding: '40px',
+    padding: '60px 20px',
     textAlign: 'center',
     minHeight: '100vh',
-    backgroundColor: '#F7F9FB'
+    background: 'linear-gradient(135deg, #F7F9FB 0%, #E0E7FF 100%)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  btn: {
-    display: 'block',
-    margin: '12px auto',
-    padding: '12px',
-    width: '220px',
-    fontSize: '16px',
-    cursor: 'pointer',
-    borderRadius: '6px',
-    border: '1px solid #0B3C5D',
+  card: {
     backgroundColor: '#fff',
-    color: '#0B3C5D'
+    padding: '40px',
+    borderRadius: '20px',
+    boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+    maxWidth: '500px',
+    width: '100%'
+  },
+  label: { marginBottom: '15px', color: '#1C5D85', textAlign: 'left' },
+  btnGroup: { display: 'flex', flexDirection: 'column', gap: '10px' },
+  btn: {
+    padding: '12px', fontSize: '16px', cursor: 'pointer',
+    borderRadius: '8px', border: '1px solid #0B3C5D',
+    backgroundColor: '#fff', color: '#0B3C5D', transition: '0.3s'
   },
   activeBtn: {
-    display: 'block',
-    margin: '12px auto',
-    padding: '12px',
-    width: '220px',
-    fontSize: '16px',
-    cursor: 'pointer',
-    borderRadius: '6px',
-    border: 'none',
-    backgroundColor: '#0B3C5D',
-    color: '#fff'
+    padding: '12px', fontSize: '16px', cursor: 'pointer',
+    borderRadius: '8px', border: '2px solid #F4A261',
+    backgroundColor: '#0B3C5D', color: '#fff', fontWeight: 'bold'
   },
   select: {
-    marginTop: '10px',
-    padding: '10px',
-    width: '240px',
-    fontSize: '16px',
-    borderRadius: '6px'
+    marginTop: '10px', padding: '12px', width: '100%',
+    fontSize: '16px', borderRadius: '8px', border: '1px solid #ccc'
   },
   continueBtn: {
-    marginTop: '35px',
-    padding: '14px 30px',
-    fontSize: '16px',
-    backgroundColor: '#F4A261',
-    color: '#0B3C5D',
-    border: 'none',
-    borderRadius: '8px',
-    cursor: 'pointer',
-    fontWeight: '600'
+    marginTop: '35px', width: '100%', padding: '16px',
+    fontSize: '16px', backgroundColor: '#F4A261', color: '#0B3C5D',
+    border: 'none', borderRadius: '30px', cursor: 'pointer', fontWeight: '700'
+  },
+  disabledBtn: {
+    marginTop: '35px', width: '100%', padding: '16px',
+    fontSize: '16px', backgroundColor: '#ccc', color: '#666',
+    border: 'none', borderRadius: '30px', cursor: 'not-allowed'
   }
 };
 

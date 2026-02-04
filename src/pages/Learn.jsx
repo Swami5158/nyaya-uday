@@ -5,155 +5,183 @@ function Learn() {
 
   return (
     <div style={styles.container}>
-      <h2>Understanding Key Roles in a Courtroom</h2>
+      <header style={styles.header}>
+        <h2 style={styles.mainTitle}>Understanding the Courtroom</h2>
+        <p style={styles.subText}>Every role is vital to ensuring justice is served fairly.</p>
+      </header>
 
-      {/* Roles Section */}
-      <div style={styles.section}>
-        <h3>👨‍⚖️ The Judge</h3>
-        <p>
-          The Judge is the impartial umpire of the courtroom. They ensure the
-          law is followed and that the trial is fair.
-        </p>
-        <p>
-          <strong>Main Tasks:</strong> Deciding what evidence is allowed,
-          instructing the jury, and deciding the verdict if there is no jury.
-        </p>
-        <p>
-          <strong>Sentencing:</strong> If the accused is found guilty, the judge
-          decides the punishment.
-        </p>
+      {/* Visual Aid Placeholder */}
+      <div style={styles.visualContainer}>
+        
+        <p style={{marginTop: '10px', fontSize: '14px', color: '#666'}}>Typical Courtroom Arrangement</p>
       </div>
 
-      <div style={styles.section}>
-        <h3>🧑‍💼 The Prosecutor</h3>
-        <p>
-          The Prosecutor represents the government (the state or the people).
-          Their job is to prove that a crime was committed.
-        </p>
-        <p>
-          They are not just trying to “win” — their ethical duty is to seek
-          justice.
-        </p>
+      {/* Roles Grid */}
+      <div style={styles.rolesGrid}>
+        <div style={styles.card}>
+          <div style={styles.roleHeader}>
+            <span style={styles.icon}>👨‍⚖️</span>
+            <h3>The Judge</h3>
+          </div>
+          <p>The impartial umpire who ensures the law is followed and the trial is fair.</p>
+          <ul style={styles.list}>
+            <li>Rules on evidence</li>
+            <li>Instructs the jury</li>
+            <li>Decides final sentences</li>
+          </ul>
+        </div>
+
+        <div style={styles.card}>
+          <div style={styles.roleHeader}>
+            <span style={styles.icon}>🧑‍💼</span>
+            <h3>The Prosecutor</h3>
+          </div>
+          <p>Represents the government. Their goal is to prove a crime was committed.</p>
+          <ul style={styles.list}>
+            <li>Presents state evidence</li>
+            <li>Seeks legal justice</li>
+            <li>Burden of proof lies here</li>
+          </ul>
+        </div>
+
+        <div style={styles.card}>
+          <div style={styles.roleHeader}>
+            <span style={styles.icon}>🧑‍⚖️</span>
+            <h3>The Defense</h3>
+          </div>
+          <p>The shield for the accused, protecting their constitutional and legal rights.</p>
+          <ul style={styles.list}>
+            <li>Cross-examines witnesses</li>
+            <li>Challenges evidence</li>
+            <li>Protects the innocent</li>
+          </ul>
+        </div>
+
+        <div style={styles.card}>
+          <div style={styles.roleHeader}>
+            <span style={styles.icon}>⚖️</span>
+            <h3>The Magistrate</h3>
+          </div>
+          <p>Handles the "entry-level" stages of the legal system and minor cases.</p>
+          <ul style={styles.list}>
+            <li>Issues search warrants</li>
+            <li>Sets bail amounts</li>
+            <li>Initial hearings</li>
+          </ul>
+        </div>
       </div>
 
-      <div style={styles.section}>
-        <h3>🧑‍⚖️ The Defense Attorney</h3>
-        <p>
-          The Defense Attorney represents the accused person. Their role is to
-          protect the legal rights of the accused.
-        </p>
-        <p>
-          They ensure the prosecution proves the case beyond reasonable doubt.
-        </p>
-      </div>
-
-      <div style={styles.section}>
-        <h3>⚖️ The Magistrate</h3>
-        <p>
-          A Magistrate is often a junior or specialized judge who handles the
-          early or administrative stages of cases.
-        </p>
-        <p>
-          <strong>Main Tasks:</strong> Issuing search warrants, setting bail, and
-          conducting initial hearings or small cases.
-        </p>
-      </div>
-
-      {/* Real World Example */}
-      <div style={styles.exampleBox}>
-        <h3>📘 Real-World Example: Shoplifting Case</h3>
-
-        <p><strong>Prosecutor:</strong> Calls the store manager and presents
-        CCTV footage to show the item was stolen.</p>
-
-        <p><strong>Defense:</strong> Argues that the footage is blurry and it
-        cannot be proven that the person shown is the accused.</p>
-
-        <p><strong>Judge:</strong> Stops a leading question by the prosecutor
-        and asks it to be rephrased.</p>
-
-        <p><strong>Magistrate:</strong> Earlier, signs a late-night search
-        warrant allowing police to search a garage for a stolen car.</p>
+      {/* Real World Example Section */}
+      <div style={styles.exampleSection}>
+        <h3 style={styles.exampleTitle}>📘 Case Study: The Shoplifting Trial</h3>
+        <div style={styles.exampleGrid}>
+          <div style={styles.exampleItem}><strong>Prosecutor:</strong> Shows CCTV footage of the theft.</div>
+          <div style={styles.exampleItem}><strong>Defense:</strong> Argues the footage is too blurry to identify the client.</div>
+          <div style={styles.exampleItem}><strong>Judge:</strong> Rules that the blurry footage is still allowed as evidence.</div>
+          <div style={styles.exampleItem}><strong>Magistrate:</strong> Signed the warrant to search the suspect's house earlier.</div>
+        </div>
       </div>
 
       {/* Comparison Table */}
-      <h3 style={{ marginTop: '40px' }}>📊 Side-by-Side Comparison</h3>
+      <div style={styles.tableSection}>
+        <h3 style={{ textAlign: 'center', marginBottom: '20px', color: '#0B3C5D' }}>📊 Comparison Table</h3>
+        <table style={styles.table}>
+          <thead>
+            <tr style={styles.tableHeader}>
+              <th style={styles.th}>Role</th>
+              <th style={styles.th}>Primary Duty</th>
+              <th style={styles.th}>Alliance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style={styles.tr}>
+              <td style={styles.td}>Prosecutor</td>
+              <td style={styles.td}>Prove Guilt</td>
+              <td style={styles.td}>Government</td>
+            </tr>
+            <tr style={styles.tr}>
+              <td style={styles.td}>Defense</td>
+              <td style={styles.td}>Protect Rights</td>
+              <td style={styles.td}>The Accused</td>
+            </tr>
+            <tr style={styles.tr}>
+              <td style={styles.td}>Judge</td>
+              <td style={styles.td}>Impartial Ruling</td>
+              <td style={styles.td}>The Law (Neutral)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-      <table style={styles.table}>
-        <thead>
-          <tr>
-            <th>Person</th>
-            <th>Main Job</th>
-            <th>Whose Side?</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Prosecutor</td>
-            <td>Prove a crime was committed</td>
-            <td>The Government / Law</td>
-          </tr>
-          <tr>
-            <td>Defense</td>
-            <td>Protect the accused person</td>
-            <td>The Accused</td>
-          </tr>
-          <tr>
-            <td>Judge</td>
-            <td>Ensure fairness and final decisions</td>
-            <td>Neutral</td>
-          </tr>
-          <tr>
-            <td>Magistrate</td>
-            <td>Handle early or minor case stages</td>
-            <td>Neutral</td>
-          </tr>
-        </tbody>
-      </table>
-
-      {/* CTA */}
-      <button
-        onClick={() => navigate('/simulation')}
-        style={styles.ctaBtn}
-      >
-        Try a Judge Simulation
-      </button>
+      <div style={{textAlign: 'center', marginTop: '50px'}}>
+        <button onClick={() => navigate('/simulation')} style={styles.ctaBtn}>
+          Start Judge Simulation →
+        </button>
+      </div>
     </div>
   );
 }
 
 const styles = {
   container: {
-    padding: '40px',
-    lineHeight: '1.6',
-    fontSize: '16px'
-  },
-  section: {
-    marginTop: '25px',
-    padding: '20px',
+    padding: '60px 10%',
     backgroundColor: '#F7F9FB',
-    borderRadius: '8px'
+    minHeight: '100vh',
+    fontFamily: "'Inter', sans-serif"
   },
-  exampleBox: {
-    marginTop: '35px',
-    padding: '20px',
-    backgroundColor: '#FFF3E6',
-    borderRadius: '8px'
+  header: { textAlign: 'center', marginBottom: '50px' },
+  mainTitle: { fontSize: '36px', color: '#0B3C5D', fontWeight: '800' },
+  subText: { color: '#555', fontSize: '18px' },
+  visualContainer: {
+    backgroundColor: '#fff',
+    padding: '30px',
+    borderRadius: '15px',
+    boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
+    textAlign: 'center',
+    marginBottom: '50px'
   },
-  table: {
-    width: '100%',
-    marginTop: '20px',
-    borderCollapse: 'collapse'
+  rolesGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+    gap: '25px',
+    marginBottom: '60px'
   },
-  ctaBtn: {
-    marginTop: '40px',
-    padding: '14px 28px',
-    fontSize: '16px',
-    cursor: 'pointer',
+  card: {
+    backgroundColor: '#fff',
+    padding: '30px',
+    borderRadius: '15px',
+    boxShadow: '0 10px 20px rgba(0,0,0,0.05)',
+    borderTop: '5px solid #F4A261',
+    transition: 'transform 0.3s ease'
+  },
+  roleHeader: { display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '15px' },
+  icon: { fontSize: '30px' },
+  list: { paddingLeft: '20px', marginTop: '15px', color: '#444' },
+  exampleSection: {
     backgroundColor: '#0B3C5D',
     color: '#fff',
+    padding: '40px',
+    borderRadius: '20px',
+    marginBottom: '60px'
+  },
+  exampleTitle: { color: '#F4A261', marginBottom: '25px' },
+  exampleGrid: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' },
+  exampleItem: { backgroundColor: 'rgba(255,255,255,0.1)', padding: '15px', borderRadius: '10px' },
+  tableSection: { overflowX: 'auto' },
+  table: { width: '100%', borderCollapse: 'collapse', backgroundColor: '#fff', borderRadius: '10px', overflow: 'hidden' },
+  tableHeader: { backgroundColor: '#1C5D85', color: '#fff' },
+  th: { padding: '15px', textAlign: 'left' },
+  td: { padding: '15px', borderBottom: '1px solid #eee' },
+  ctaBtn: {
+    padding: '18px 40px',
+    fontSize: '18px',
+    backgroundColor: '#F4A261',
+    color: '#0B3C5D',
     border: 'none',
-    borderRadius: '8px'
+    borderRadius: '35px',
+    cursor: 'pointer',
+    fontWeight: '700',
+    boxShadow: '0 10px 20px rgba(244, 162, 97, 0.3)'
   }
 };
 
