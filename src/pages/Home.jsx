@@ -4,31 +4,95 @@ function Home() {
   const navigate = useNavigate();
 
   return (
-    <div style={{ padding: '40px', textAlign: 'center' }}>
-      <h1>Nyaya-Uday</h1>
+    <div style={styles.container}>
+      
+      {/* Hero Section */}
+      <div style={styles.hero}>
+        <h1 style={styles.title}>Nyaya-Uday</h1>
+        <p style={styles.subtitle}>
+          Discover the Judicial Career Path — Early, Clearly, Honestly
+        </p>
 
-      <h3>
-        Judicial Career Discovery & Simulation App
-      </h3>
+        <button style={styles.primaryBtn} onClick={() => navigate('/input')}>
+          Start My Journey
+        </button>
+      </div>
 
-      <p>
-        Understand the path to becoming a judge and
-        see if judicial thinking suits you.
-      </p>
+      {/* Goals Section */}
+      <div style={styles.goals}>
+        <div style={styles.card}>
+          <h3>🧭 Clear Career Path</h3>
+          <p>
+            Step-by-step guidance to becoming a judge in simple language.
+          </p>
+        </div>
 
-      <button
-        onClick={() => navigate('/input')}
-        style={{
-          marginTop: '20px',
-          padding: '12px 20px',
-          fontSize: '16px',
-          cursor: 'pointer'
-        }}
-      >
-        Start My Journey
-      </button>
+        <div style={styles.card}>
+          <h3>⚖️ Think Like a Judge</h3>
+          <p>
+            Experience real-life judicial decision-making scenarios.
+          </p>
+        </div>
+
+        <div style={styles.card}>
+          <h3>📊 Honest Self-Assessment</h3>
+          <p>
+            Understand if judicial reasoning truly suits you.
+          </p>
+        </div>
+      </div>
+
     </div>
   );
 }
+
+const styles = {
+  container: {
+    minHeight: '100vh',
+    padding: '30px',
+    fontFamily: 'Arial, sans-serif',
+    background: 'linear-gradient(135deg, #0B3C5D 0%, #1C5D85 40%, #F7F9FB 100%)'
+  },
+  hero: {
+    textAlign: 'center',
+    marginBottom: '50px',
+    color: '#FFFFFF'
+  },
+  title: {
+    fontSize: '44px',
+    marginBottom: '10px',
+    fontWeight: '700'
+  },
+  subtitle: {
+    fontSize: '18px',
+    maxWidth: '520px',
+    margin: '0 auto 30px',
+    lineHeight: '1.5',
+    opacity: '0.95'
+  },
+  primaryBtn: {
+    padding: '14px 30px',
+    fontSize: '16px',
+    backgroundColor: '#F4A261',
+    color: '#0B3C5D',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    fontWeight: '600'
+  },
+  goals: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))',
+    gap: '22px'
+  },
+  card: {
+    backgroundColor: '#FFFFFF',
+    padding: '22px',
+    borderRadius: '10px',
+    boxShadow: '0 6px 18px rgba(0,0,0,0.12)',
+    textAlign: 'center',
+    color: '#2E2E2E'
+  }
+};
 
 export default Home;
