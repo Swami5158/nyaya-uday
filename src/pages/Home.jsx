@@ -3,6 +3,11 @@ import { useNavigate } from 'react-router-dom';
 function Home() {
   const navigate = useNavigate();
 
+  const handleLogin = () => {
+    localStorage.setItem('isLoggedIn', 'true');
+    navigate('/profile');
+  };
+
   return (
     <div style={styles.container}>
       
@@ -13,8 +18,8 @@ function Home() {
           Discover the Judicial Career Path — Early, Clearly, Honestly
         </p>
 
-        <button style={styles.primaryBtn} onClick={() => navigate('/input')}>
-          Start My Journey
+        <button style={styles.primaryBtn} onClick={handleLogin}>
+          Login & Start
         </button>
       </div>
 
@@ -22,26 +27,19 @@ function Home() {
       <div style={styles.goals}>
         <div style={styles.card}>
           <h3>🧭 Clear Career Path</h3>
-          <p>
-            Step-by-step guidance to becoming a judge in simple language.
-          </p>
+          <p>Step-by-step guidance to becoming a judge.</p>
         </div>
 
         <div style={styles.card}>
           <h3>⚖️ Think Like a Judge</h3>
-          <p>
-            Experience real-life judicial decision-making scenarios.
-          </p>
+          <p>Experience judicial decision-making.</p>
         </div>
 
         <div style={styles.card}>
           <h3>📊 Honest Self-Assessment</h3>
-          <p>
-            Understand if judicial reasoning truly suits you.
-          </p>
+          <p>Decide before committing years of effort.</p>
         </div>
       </div>
-
     </div>
   );
 }
@@ -67,8 +65,7 @@ const styles = {
     fontSize: '18px',
     maxWidth: '520px',
     margin: '0 auto 30px',
-    lineHeight: '1.5',
-    opacity: '0.95'
+    lineHeight: '1.5'
   },
   primaryBtn: {
     padding: '14px 30px',

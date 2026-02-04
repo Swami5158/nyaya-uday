@@ -2,7 +2,9 @@ import { useNavigate } from 'react-router-dom';
 
 function Roadmap() {
   const navigate = useNavigate();
+
   const educationLevel = localStorage.getItem('educationLevel');
+  const state = localStorage.getItem('userState');
 
   let lawPath = '';
 
@@ -17,15 +19,14 @@ function Roadmap() {
       <h2>Your Judicial Career Roadmap</h2>
 
       <p>
-        Based on your current education level (
-        <strong>{educationLevel}</strong>),
-        here is a simple path to becoming a judge:
+        Based on your profile (<strong>{educationLevel}</strong>,{' '}
+        <strong>{state}</strong>), here is your path:
       </p>
 
-      <ul style={{ marginTop: '30px', fontSize: '16px' }}>
+      <ul style={{ marginTop: '25px', fontSize: '16px' }}>
         <li>Complete your current education</li>
         <li>Enroll in <strong>{lawPath}</strong></li>
-        <li>Clear the State Judicial Services Examination</li>
+        <li>Clear the <strong>{state} Judicial Services Examination</strong></li>
         <li>Become a <strong>Civil Judge / Magistrate</strong></li>
       </ul>
 
@@ -38,7 +39,7 @@ function Roadmap() {
           cursor: 'pointer'
         }}
       >
-        Learn What Judges Do
+        Learn Courtroom Roles
       </button>
     </div>
   );
