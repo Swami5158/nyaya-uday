@@ -1,64 +1,85 @@
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 function Home() {
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
 
-  // Updated: This now takes the user to your actual Login page
   const handleStart = () => {
     navigate('/login'); 
   };
 
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'en' ? 'hi' : 'en';
+    i18n.changeLanguage(newLang);
+  };
+
   return (
     <div style={styles.container}>
+      {/* Language Toggle Button */}
+      <div style={{ textAlign: 'right', marginBottom: '20px' }}>
+        <button onClick={toggleLanguage} style={styles.langBtn}>
+          {i18n.language === 'en' ? 'हिंदी में बदलें' : 'Switch to English'}
+        </button>
+      </div>
+
       {/* Hero Section */}
       <div style={styles.hero}>
-        <h1 style={styles.title}>Nyaya-Uday</h1>
+        <h1 style={styles.title}>{t('welcome_title', { defaultValue: 'Nyaya-Uday' })}</h1>
         <p style={styles.subtitle}>
-          Empowering the next generation of legal minds. Discover the Judicial Career Path — Early, Clearly, Honestly.
+          {t('hero_subtitle', { defaultValue: 'Empowering the next generation of legal minds. Discover the Judicial Career Path — Early, Clearly, Honestly.' })}
         </p>
         <div style={styles.buttonGroup}>
-          {/* Changed handleLogin to handleStart for clarity */}
           <button style={styles.primaryBtn} onClick={handleStart}>
-            Get Started Now
+            {t('get_started', { defaultValue: 'Get Started Now' })}
           </button>
-          <button style={styles.secondaryBtn}>Watch Demo</button>
+          <button style={styles.secondaryBtn}>{t('watch_demo', { defaultValue: 'Watch Demo' })}</button>
         </div>
       </div>
 
       {/* Stats Section */}
       <div style={styles.statsContainer}>
-        <div style={styles.statItem}><b>5000+</b> Students</div>
-        <div style={styles.statItem}><b>20+</b> State Exams</div>
-        <div style={styles.statItem}><b>100%</b> Free Guidance</div>
+        <div style={styles.statItem}><b>5000+</b> {t('students', { defaultValue: 'Students' })}</div>
+        <div style={styles.statItem}><b>20+</b> {t('state_exams', { defaultValue: 'State Exams' })}</div>
+        <div style={styles.statItem}><b>100%</b> {t('free_guidance', { defaultValue: 'Free Guidance' })}</div>
       </div>
 
       {/* Goals Section */}
       <div style={styles.goals}>
         <div style={styles.card}>
           <div style={styles.icon}>🧭</div>
-          <h3 style={styles.cardTitle}>Clear Career Path</h3>
-          <p style={styles.cardText}>Step-by-step guidance to becoming a judge in various high courts.</p>
+          <h3 style={styles.cardTitle}>{t('goal1_title', { defaultValue: 'Clear Career Path' })}</h3>
+          <p style={styles.cardText}>{t('goal1_text', { defaultValue: 'Step-by-step guidance to becoming a judge.' })}</p>
         </div>
 
         <div style={styles.card}>
           <div style={styles.icon}>⚖️</div>
-          <h3 style={styles.cardTitle}>Think Like a Judge</h3>
-          <p style={styles.cardText}>Test your ethics and logic with real-world judicial simulations.</p>
+          <h3 style={styles.cardTitle}>{t('goal2_title', { defaultValue: 'Think Like a Judge' })}</h3>
+          <p style={styles.cardText}>{t('goal2_text', { defaultValue: 'Test your ethics and logic with real-world judicial simulations.' })}</p>
         </div>
 
         <div style={styles.card}>
           <div style={styles.icon}>📊</div>
-          <h3 style={styles.cardTitle}>Self-Assessment</h3>
-          <p style={styles.cardText}>Detailed analytics to see if you're ready for the bench.</p>
+          <h3 style={styles.cardTitle}>{t('goal3_title', { defaultValue: 'Self-Assessment' })}</h3>
+          <p style={styles.cardText}>{t('goal3_text', { defaultValue: 'Detailed analytics to see if you\'re ready for the bench.' })}</p>
         </div>
       </div>
     </div>
   );
 }
 
-// ... styles remain the same as you provided
-
 const styles = {
+  // ... Keep all your existing styles here ...
+  // ADD THIS NEW STYLE FOR THE BUTTON
+  langBtn: {
+    padding: '10px 20px',
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    color: '#fff',
+    border: '1px solid #F4A261',
+    borderRadius: '20px',
+    cursor: 'pointer',
+    fontWeight: '600'
+  },
   container: {
     minHeight: '100vh',
     padding: '60px 20px',
