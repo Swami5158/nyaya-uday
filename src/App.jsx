@@ -11,6 +11,7 @@ import Input from './pages/Input';
 import Roadmap from './pages/Roadmap';
 import Learn from './pages/Learn';
 import Simulation from './pages/Simulation';
+import SimulationDashboard from './pages/SimulationDashboard'; // Added this import
 import Score from './pages/Score';
 import Profile from './pages/Profile';
 
@@ -23,13 +24,12 @@ function App() {
       if (user) {
         console.log("Auth State: Logged in as", user.displayName);
 
-        // Check database to see if user has already completed the input form
         const userRef = doc(db, "users", user.uid);
         const docSnap = await getDoc(userRef);
 
         if (docSnap.exists()) {
           const data = docSnap.data();
-          // If they already have data and are trying to access /login or /input, redirect to roadmap
+          // Smart redirect: If they finished setup, don't let them go back to login/input
           if (data.userState && data.educationLevel) {
             if (location.pathname === '/login' || location.pathname === '/input') {
               navigate('/roadmap', { replace: true });
@@ -52,8 +52,12 @@ function App() {
         <Route path="/learn" element={<Learn />} />
         <Route path="/input" element={<Input />} />
         <Route path="/roadmap" element={<Roadmap />} />
-        <Route path="/simulation" element={<Simulation />} />
+        
+        {/* Simulation Routes */}
+        <Route path="/simulation" element={<SimulationDashboard />} />
+        <Route path="/simulation/play" element={<Simulation />} />
         <Route path="/score" element={<Score />} />
+        
         <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<Home />} />
       </Routes>
